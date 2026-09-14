@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hamza — Minecraft Developer & Server Specialist</title>
+<meta name="description" content="Hamza — professional Minecraft programming, server protection, DDoS mitigation, performance optimization, Paper/Folia forks, custom jars and pro configs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#08040f; --bg2:#120a22; --card:rgba(28,17,50,.78); --card2:#221538;
+    --border:rgba(168,85,247,.3); --text:#f5eeff; --muted:#b9a8de;
+    --accent:#a855f7; --accent2:#6d28d9; --pink:#e879f9;
+    --glow:rgba(168,85,247,.42);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Segoe UI',Tahoma,system-ui,-apple-system,Arial,sans-serif;line-height:1.7;overflow-x:hidden}
+  ::selection{background:var(--accent);color:#fff}
+  ::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{background:#0a0514}
+  ::-webkit-scrollbar-thumb{background:linear-gradient(var(--accent),var(--accent2));border-radius:8px}
+  #particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+  #cursorGlow{position:fixed;width:560px;height:560px;border-radius:50%;pointer-events:none;z-index:0;
+    background:radial-gradient(circle,rgba(168,85,247,.17),transparent 65%);
+    transform:translate(-50%,-50%);transition:opacity .3s}
+  .grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;
+    background-image:linear-gradient(rgba(168,85,247,.07) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(168,85,247,.07) 1px,transparent 1px);
+    background-size:54px 54px;
+    -webkit-mask-image:radial-gradient(ellipse 90% 62% at 50% 0%,#000 25%,transparent 78%);
+    mask-image:radial-gradient(ellipse 90% 62% at 50% 0%,#000 25%,transparent 78%)}
+  .orb{position:fixed;border-radius:50%;filter:blur(110px);z-index:0;pointer-events:none;opacity:.6;will-change:transform}
+  .orb.a{width:560px;height:560px;left:-160px;top:-140px;background:radial-gradient(circle,rgba(168,85,247,.6),transparent 70%)}
+  .orb.b{width:600px;height:600px;right:-180px;top:36%;background:radial-gradient(circle,rgba(109,40,217,.55),transparent 70%)}
+  .orb.c{width:460px;height:460px;left:24%;bottom:-180px;background:radial-gradient(circle,rgba(232,121,249,.38),transparent 70%)}
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:50;
+    background:linear-gradient(90deg,var(--accent2),var(--pink),#fff,var(--accent));box-shadow:0 0 14px var(--glow)}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 22px;position:relative;z-index:1}
+  /* ICONS */
+  .ic{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+  .ic.sm{width:16px;height:16px}
+  /* NAV */
+  nav{position:sticky;top:0;z-index:10;background:rgba(8,4,15,.82);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px}
+  .logo-mark{width:37px;height:37px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--pink),var(--accent),var(--accent2));font-weight:900;color:#fff;font-size:19px;
+    box-shadow:0 0 26px var(--glow);animation:markPulse 2.6s ease-in-out infinite}
+  @keyframes markPulse{0%,100%{box-shadow:0 0 14px var(--glow);transform:scale(1)}50%{box-shadow:0 0 38px var(--accent);transform:scale(1.09)}}
+  .status-dot{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);white-space:nowrap}
+  .status-dot i{width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 10px #4ade80;animation:blinkDot 1.8s infinite}
+  @keyframes blinkDot{50%{opacity:.35}}
+  .links{display:flex;gap:20px;font-size:14px;color:var(--muted)}
+  .links a{position:relative;transition:.2s;padding:4px 0;white-space:nowrap}
+  .links a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;
+    background:linear-gradient(90deg,var(--accent),var(--pink));transition:.25s;border-radius:2px;box-shadow:0 0 8px var(--glow)}
+  .links a:hover{color:#fff}.links a:hover::after{width:100%}
+  .nav-right{display:flex;gap:10px;align-items:center}
+  .lang-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:12px;font-weight:700;font-size:13px;
+    border:1px solid var(--border);background:rgba(168,85,247,.1);color:#e9d5ff;cursor:pointer;transition:.2s;font-family:inherit}
+  .lang-btn:hover{background:rgba(168,85,247,.28);box-shadow:0 0 16px var(--glow)}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:14px;font-weight:700;font-size:14px;
+    border:1px solid var(--border);background:var(--card);transition:.2s;will-change:transform;backdrop-filter:blur(8px);font-family:inherit}
+  .btn.primary{background:linear-gradient(135deg,var(--pink),var(--accent),var(--accent2));background-size:180% auto;
+    color:#fff;border:none;box-shadow:0 4px 28px var(--glow);animation:btnGlow 2.8s ease-in-out infinite}
+  @keyframes btnGlow{0%,100%{box-shadow:0 4px 18px var(--glow)}50%{box-shadow:0 4px 46px var(--accent)}}
+  .btn:hover{transform:translateY(-3px) scale(1.03)}
+  /* HERO */
+  header.hero{padding:104px 0 56px;text-align:center;perspective:1000px;position:relative}
+  #heroInner{transition:transform .25s ease-out;will-change:transform}
+  .tag{display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#f0ddff;
+    border:1px solid var(--border);border-radius:999px;padding:9px 22px;margin-bottom:26px;background:rgba(168,85,247,.12);
+    box-shadow:inset 0 0 24px rgba(168,85,247,.14),0 0 24px rgba(168,85,247,.15);animation:fadeDown 1s ease both}
+  .tag i{width:7px;height:7px;border-radius:50%;background:var(--pink);box-shadow:0 0 10px var(--pink);animation:blinkDot 1.6s infinite}
+  h1{font-size:clamp(40px,7vw,72px);line-height:1.08;margin-bottom:20px;font-weight:900;letter-spacing:-1px;animation:fadeUp 1s .1s ease both}
+  h1 .grad{background:linear-gradient(135deg,#fff,var(--pink),var(--accent),var(--accent2),#fff);
+    background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:shineText 6s linear infinite;filter:drop-shadow(0 0 30px rgba(168,85,247,.5))}
+  @keyframes shineText{to{background-position:220% center}}
+  .sub{color:var(--muted);max-width:730px;margin:0 auto 12px;font-size:17.5px;animation:fadeUp 1s .2s ease both}
+  .sub b{color:var(--text)}
+  .rotator{font-size:15px;letter-spacing:1px;color:#e9d5ff;min-height:26px;margin-bottom:26px;animation:fadeUp 1s .3s ease both}
+  .rotator #rotWord{color:var(--pink);font-weight:800;border-right:2px solid var(--pink);padding-right:4px;animation:blink .8s step-end infinite}
+  @keyframes blink{50%{border-color:transparent}}
+  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:fadeUp 1s .4s ease both}
+  .hero-badges{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:26px;animation:fadeUp 1s .5s ease both}
+  .hero-badges span{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:#e3ccff;border:1px solid var(--border);
+    border-radius:999px;padding:6px 15px;background:rgba(168,85,247,.09)}
+  .stats{display:flex;gap:14px;justify-content:center;margin-top:40px;flex-wrap:wrap}
+  .stat{background:var(--card);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:16px;
+    padding:18px 30px;min-width:150px;transition:.25s;animation:fadeUp 1s ease both;position:relative;overflow:hidden}
+  .stat::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--pink),transparent);opacity:.7}
+  .stat:hover{border-color:var(--pink);box-shadow:0 0 32px var(--glow);transform:translateY(-5px) scale(1.03)}
+  .stat b{font-size:28px;display:block;background:linear-gradient(135deg,#fff,var(--pink),var(--accent));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat small{color:var(--muted)}
+  .marquee{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+    background:linear-gradient(90deg,rgba(168,85,247,.12),rgba(232,121,249,.06),rgba(168,85,247,.12));
+    padding:13px 0;margin-top:60px;position:relative;z-index:1}
+  .marquee-track{display:flex;gap:38px;width:max-content;animation:scrollX 26s linear infinite;
+    font-size:13px;letter-spacing:2px;color:#e9d5ff;white-space:nowrap;font-weight:700}
+  .marquee-track span::before{content:"✦ ";color:var(--pink)}
+  @keyframes scrollX{to{transform:translateX(-50%)}}
+  /* SECTIONS */
+  section{padding:64px 0}
+  .kicker{display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:3px;text-transform:uppercase;
+    color:var(--pink);margin-bottom:10px;font-weight:700}
+  .kicker::before{content:"";width:28px;height:2px;background:linear-gradient(90deg,var(--accent),var(--pink));
+    border-radius:2px;box-shadow:0 0 10px var(--glow);flex:none}
+  h2{font-size:clamp(26px,4vw,34px);margin-bottom:10px;letter-spacing:-.5px}
+  h2 .grad{background:linear-gradient(135deg,#fff,var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sec-sub{color:var(--muted);margin-bottom:30px;max-width:720px;font-size:16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+  .card{background:var(--card);backdrop-filter:blur(12px);border:1px solid var(--border);
+    border-radius:20px;padding:28px 26px;transition:transform .2s,box-shadow .25s,border-color .25s;
+    position:relative;overflow:hidden;transform-style:preserve-3d;will-change:transform}
+  .card::after{content:"";position:absolute;top:0;left:-80%;width:60%;height:100%;
+    background:linear-gradient(100deg,transparent,rgba(232,121,249,.17),transparent);transform:skewX(-20deg);transition:.6s;pointer-events:none}
+  .card::before{content:"";position:absolute;inset:0;border-radius:20px;padding:1px;pointer-events:none;opacity:0;transition:.3s;
+    background:linear-gradient(135deg,var(--pink),transparent 40%,transparent 60%,var(--accent2));
+    -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+  .card:hover{border-color:transparent;box-shadow:0 14px 48px rgba(168,85,247,.35)}
+  .card:hover::after{left:130%}.card:hover::before{opacity:1}
+  .icon{width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;
+    margin-bottom:16px;color:#e9d5ff;
+    background:linear-gradient(135deg,rgba(232,121,249,.3),rgba(109,40,217,.35));
+    border:1px solid rgba(232,121,249,.4);transition:.25s;
+    box-shadow:inset 0 0 16px rgba(168,85,247,.25),0 0 18px rgba(168,85,247,.25)}
+  .card:hover .icon{transform:scale(1.14) rotate(-8deg);box-shadow:0 0 30px var(--glow);color:#fff}
+  .card h3{font-size:18px;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:14px}
+  .card ul{list-style:none;margin-top:12px;font-size:13px;color:var(--muted)}
+  .card ul li{padding:3px 0;display:flex;align-items:center;gap:8px}
+  .card ul li .ic{width:14px;height:14px;color:var(--pink)}
+  .card .meta{margin-top:14px;font-size:12px;color:var(--pink);font-weight:700;letter-spacing:1px}
+  .about-card{background:var(--card);backdrop-filter:blur(12px);border:1px solid var(--border);
+    border-radius:20px;padding:32px;font-size:16.5px;color:var(--muted);transition:.25s;position:relative;overflow:hidden}
+  .about-card::before{content:"";position:absolute;top:0;left:32px;right:32px;height:1px;
+    background:linear-gradient(90deg,transparent,var(--pink),transparent)}
+  .about-card:hover{border-color:var(--accent);box-shadow:0 0 36px var(--glow)}
+  .about-card b{color:var(--text)}
+  .skills{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+  .skill{display:inline-flex;align-items:center;gap:7px;font-size:12px;padding:6px 14px;border-radius:999px;
+    background:rgba(168,85,247,.12);border:1px solid var(--border);color:#e3ccff;transition:.2s;cursor:default}
+  .skill .ic{width:13px;height:13px}
+  .skill:hover{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;transform:translateY(-2px);box-shadow:0 0 14px var(--glow)}
+  /* FEATURED */
+  .featured{border-radius:26px;padding:2px;background:linear-gradient(135deg,var(--pink),rgba(168,85,247,.15) 30%,rgba(168,85,247,.15) 70%,var(--accent2));
+    box-shadow:0 0 80px rgba(168,85,247,.28)}
+  .featured-inner{border-radius:24px;padding:40px;position:relative;overflow:hidden;
+    background:linear-gradient(180deg,#1e1236,#100824)}
+  .featured-inner::before{content:"";position:absolute;top:-70px;right:-70px;width:250px;height:250px;border-radius:50%;
+    background:radial-gradient(circle,rgba(232,121,249,.5),transparent 70%);filter:blur(24px)}
+  .featured .flag{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:2px;font-weight:800;color:#fff;
+    background:linear-gradient(135deg,var(--pink),var(--accent2));border-radius:999px;padding:7px 18px;margin-bottom:16px;
+    box-shadow:0 0 22px var(--glow);animation:markPulse 3s ease-in-out infinite}
+  .featured h3{font-size:34px;margin-bottom:6px}
+  .featured h3 .grad{background:linear-gradient(135deg,#fff,var(--pink),var(--accent));
+    -webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(232,121,249,.4))}
+  .featured .ver{color:var(--pink);font-size:13px;font-weight:700;margin-bottom:14px;letter-spacing:1px}
+  .featured p{color:var(--muted);max-width:800px}
+  .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:22px}
+  .feat{background:rgba(0,0,0,.32);border:1px solid var(--border);border-radius:14px;padding:18px;transition:.25s}
+  .feat:hover{border-color:var(--pink);box-shadow:0 0 22px var(--glow);transform:translateY(-3px)}
+  .feat h4{font-size:15px;margin-bottom:8px;color:#f3e8ff;display:flex;align-items:center;gap:8px}
+  .feat h4 .ic{width:17px;height:17px;color:var(--pink)}
+  .feat p, .feat li{font-size:13px;color:var(--muted)}
+  .feat ul{list-style:none}.feat ul li{padding:2px 0;display:flex;align-items:center;gap:7px}
+  .feat ul li .ic{width:13px;height:13px;color:var(--pink);flex:none}
+  .ladders{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+  .ladder{font-size:12px;padding:5px 13px;border-radius:999px;background:rgba(168,85,247,.12);
+    border:1px solid var(--border);color:#e3ccff;transition:.2s;cursor:default}
+  .ladder:hover{background:linear-gradient(135deg,var(--pink),var(--accent2));color:#fff;box-shadow:0 0 16px var(--accent);transform:scale(1.1)}
+  code.cmd{display:block;background:#07030e;border:1px solid var(--border);border-radius:8px;
+    padding:6px 12px;font-size:12.5px;color:#e3ccff;margin:4px 0}
+  /* STEPS */
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:8px}
+  .step{background:var(--card);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:18px;
+    padding:26px 22px;text-align:center;transition:.25s;position:relative;overflow:hidden}
+  .step::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:.3s}
+  .step:hover{border-color:var(--pink);box-shadow:0 0 28px var(--glow);transform:translateY(-5px)}
+  .step:hover::before{opacity:1}
+  .step .num{width:42px;height:42px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;
+    justify-content:center;font-weight:900;background:linear-gradient(135deg,var(--pink),var(--accent2));
+    box-shadow:0 0 20px var(--glow);font-size:17px}
+  .step h4{font-size:15px;margin-bottom:6px}.step p{font-size:13px;color:var(--muted)}
+  .contact-box{background:linear-gradient(180deg,rgba(46,25,86,.92),rgba(18,10,34,.94));backdrop-filter:blur(12px);
+    border:1px solid var(--border);border-radius:24px;padding:48px 30px;text-align:center;
+    box-shadow:0 0 70px rgba(168,85,247,.2);transition:.3s;position:relative;overflow:hidden}
+  .contact-box::before{content:"";position:absolute;top:-90px;left:50%;transform:translateX(-50%);
+    width:440px;height:170px;background:radial-gradient(ellipse,rgba(232,121,249,.32),transparent 70%);filter:blur(22px)}
+  .contact-box:hover{box-shadow:0 0 110px rgba(168,85,247,.38)}
+  .contact-row{display:flex;gap:12px;justify-content:center;margin-top:22px;flex-wrap:wrap;position:relative}
+  code.id{background:#07030e;border:1px solid var(--pink);border-radius:12px;padding:11px 26px;
+    font-size:16px;cursor:pointer;color:#f3e8ff;font-weight:700;transition:.2s;box-shadow:0 0 16px rgba(168,85,247,.28)}
+  code.id:hover{background:rgba(168,85,247,.28);box-shadow:0 0 26px var(--glow);transform:scale(1.05)}
+  footer{border-top:1px solid var(--border);padding:34px 0 28px;color:var(--muted);font-size:13px}
+  .foot-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:22px;margin-bottom:24px}
+  .foot-grid h5{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#e9d5ff;margin-bottom:12px}
+  .foot-grid a{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:13.5px;transition:.2s}
+  .foot-grid a:hover{color:#fff;text-shadow:0 0 10px var(--accent)}
+  .foot-grid a .ic{width:14px;height:14px;color:var(--pink)}
+  .foot-bottom{border-top:1px solid var(--border);padding-top:18px;text-align:center}
+  .foot-bottom span{color:var(--pink)}
+  #toTop{position:fixed;right:22px;bottom:22px;z-index:40;width:46px;height:46px;border-radius:14px;border:1px solid var(--border);
+    background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:20px;cursor:pointer;
+    box-shadow:0 0 24px var(--glow);opacity:0;pointer-events:none;transition:.3s;font-family:inherit}
+  #toTop.show{opacity:1;pointer-events:auto}
+  #toTop:hover{transform:translateY(-4px)}
+  /* ===== ORGANIZATION & POLISH PASS ===== */
+  section{scroll-margin-top:70px;position:relative}
+  header.hero{scroll-margin-top:70px}
+  section::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:min(940px,88%);height:1px;
+    background:linear-gradient(90deg,transparent,rgba(168,85,247,.55),transparent)}
+  section:first-of-type::before{display:none}
+  .grid{align-items:stretch}
+  .card{display:flex;flex-direction:column}
+  .card .meta{margin-top:auto;padding-top:14px}
+  .btn.primary,.featured .flag{clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  .logo-mark{transition:.25s}
+  .logo:hover .logo-mark{transform:rotate(-10deg) scale(1.1)}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.visible{opacity:1;transform:none}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:none}}
+  [dir="rtl"] .ladders,[dir="rtl"] code{direction:ltr}
+  [dir="rtl"] .rotator #rotWord{border-right:none;border-left:2px solid var(--pink);padding-right:0;padding-left:4px}
+  @media(max-width:900px){.links,.status-dot{display:none}.foot-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:640px){.cube.c1,.cube.c3{display:none}.cube.c2{right:5%}}
+  @media(max-width:640px){header.hero{padding:66px 0 42px}.featured-inner{padding:26px}#cursorGlow{display:none}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}#cursorGlow{display:none}}
+  /* ===== MINECRAFT LIFE: creeper, XP bar, grass, cubes, toast ===== */
+  .px{font-family:'Press Start 2P',monospace}
+  /* XP bar (replaces thin progress look) */
+  #progress{height:9px!important;border-bottom:2px solid #1d3a12;
+    background:linear-gradient(180deg,#a4f06a 0 45%,#5fbf3a 45% 100%)!important;
+    box-shadow:0 2px 10px rgba(120,220,80,.5)!important}
+  #xpLevel{position:fixed;top:74px;left:50%;transform:translateX(-50%);z-index:9;
+    font-family:'Press Start 2P',monospace;font-size:11px;color:#c8f7a1;text-shadow:2px 2px 0 #1d3a12;
+    background:rgba(8,12,6,.65);border:2px solid #2c4d1c;border-radius:8px;padding:5px 12px;pointer-events:none}
+  /* grass divider strip */
+  .grass-strip{height:30px;position:relative;z-index:1;
+    background:
+      repeating-conic-gradient(rgba(0,0,0,.14) 0 25%,transparent 0 50%) 0 0/12px 12px,
+      linear-gradient(180deg,#7bd747 0 11px,#5aa72e 11px 13px,#6b4423 13px 22px,#4e2f16 22px);
+    border-top:3px solid #8fe05c;border-bottom:3px solid #2c1c0c;
+    box-shadow:0 6px 24px rgba(90,180,50,.25)}
+  .grass-strip::after{content:"";position:absolute;inset:0;
+    background:repeating-linear-gradient(90deg,transparent 0 22px,rgba(0,0,0,.12) 22px 24px)}
+  /* floating pixel cubes in hero */
+  .cube{position:absolute;width:26px;height:26px;z-index:0;opacity:.9;pointer-events:none;
+    background:linear-gradient(135deg,#7bd747 0 55%,#4a8a24 55% 100%);
+    border:3px solid #2c5a16;box-shadow:0 0 18px rgba(120,220,80,.4);animation:cubeBob 4s ease-in-out infinite}
+  .cube.diamond{background:linear-gradient(135deg,#7ff5ff 0 55%,#1d9dbf 55% 100%);border-color:#0e5a70;box-shadow:0 0 18px rgba(80,220,255,.45)}
+  .cube.gold{background:linear-gradient(135deg,#ffe066 0 55%,#c9930a 55% 100%);border-color:#7a5a05;box-shadow:0 0 18px rgba(255,210,60,.45)}
+  .cube.c1{left:8%;top:22%}.cube.c2{right:9%;top:30%;animation-delay:-1.4s}
+  .cube.c3{left:15%;bottom:14%;animation-delay:-2.6s}
+  @keyframes cubeBob{0%,100%{transform:translateY(0) rotate(8deg)}50%{transform:translateY(-18px) rotate(-8deg)}}
+  /* CREEPER mascot */
+  #creeper{position:fixed;left:20px;bottom:16px;z-index:45;width:84px;cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;animation:creepBob 3s ease-in-out infinite}
+  @keyframes creepBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  #creeper.hiss{animation:creepShake .45s linear}
+  @keyframes creepShake{0%,100%{transform:translate(0)}20%{transform:translate(-6px,2px)}40%{transform:translate(6px,-2px)}60%{transform:translate(-5px,-2px)}80%{transform:translate(5px,2px)}}
+  .c-bubble{font-size:11.5px;background:#f4edff;color:#2a1445;border-radius:12px;padding:7px 12px;margin-bottom:10px;
+    position:relative;white-space:nowrap;box-shadow:0 4px 18px rgba(0,0,0,.5);opacity:0;transform:translateY(6px);transition:.25s;pointer-events:none;max-width:230px;white-space:normal;text-align:center}
+  .c-bubble::after{content:"";position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);
+    border:7px solid transparent;border-top-color:#f4edff;border-bottom:none}
+  #creeper.show-bubble .c-bubble,#creeper:hover .c-bubble{opacity:1;transform:none}
+  .c-head{width:72px;height:72px;position:relative;
+    background:repeating-conic-gradient(#58b032 0 25%,#489a28 0 50%) 0 0/18px 18px;
+    border:3px solid #2c5a16;box-shadow:0 0 26px rgba(120,220,80,.45),inset 0 0 0 2px rgba(0,0,0,.15)}
+  .c-head::after{content:"";position:absolute;left:0;top:0;width:9px;height:9px;background:#141414;
+    box-shadow:27px 27px 0 #141414,36px 27px 0 #141414,
+      18px 36px 0 #141414,27px 36px 0 #141414,36px 36px 0 #141414,45px 36px 0 #141414,
+      18px 45px 0 #141414,27px 45px 0 #141414,36px 45px 0 #141414,45px 45px 0 #141414,
+      18px 54px 0 #141414,45px 54px 0 #141414,18px 63px 0 #141414,45px 63px 0 #141414}
+  .c-head .eye{position:absolute;top:9px;width:18px;height:18px;background:#141414;transition:transform .12s}
+  .c-head .eye.l{left:9px}.c-head .eye.r{right:9px}
+  .c-head .pupil{position:absolute;left:5px;top:5px;width:8px;height:8px;background:#8ee06a}
+  .c-head.blink .eye{transform:scaleY(.12)}
+  .c-body{width:56px;height:40px;position:relative;
+    background:repeating-conic-gradient(#4ea52c 0 25%,#418a24 0 50%) 0 0/14px 14px;
+    border:3px solid #2c5a16;border-top:none}
+  .c-body .arm{position:absolute;top:-2px;width:13px;height:34px;background:#4ea52c;border:3px solid #2c5a16}
+  .c-body .arm.l{left:-16px;transform-origin:top center}
+  .c-body .arm.r{right:-16px}
+  #creeper:hover .arm.l{animation:wave .6s ease-in-out infinite}
+  @keyframes wave{0%,100%{transform:rotate(0)}50%{transform:rotate(-55deg)}}
+  .c-feet{display:flex;gap:8px}
+  .c-feet i{width:20px;height:12px;background:#3a7a20;border:3px solid #2c5a16;border-top:none}
+  #flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:60;transition:opacity .1s}
+  .heart-bit{position:fixed;z-index:61;color:#ff5b7f;font-size:18px;pointer-events:none;
+    text-shadow:0 0 8px rgba(255,60,110,.8);animation:heartUp 1.2s ease-out forwards}
+  @keyframes heartUp{to{transform:translateY(-90px) scale(1.4);opacity:0}}
+  /* Achievement toast */
+  #toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,120px);z-index:62;
+    display:flex;gap:12px;align-items:center;background:#1c1428;border:2px solid var(--gold,#fbbf24);
+    border-radius:12px;padding:12px 20px;box-shadow:0 8px 40px rgba(0,0,0,.6),0 0 24px rgba(251,191,36,.3);
+    transition:transform .4s cubic-bezier(.2,1.4,.4,1);max-width:92vw}
+  #toast.show{transform:translate(-50%,0)}
+  #toast .t-icon{width:38px;height:38px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,#fbbf24,#b45309);color:#1a1005;font-family:'Press Start 2P',monospace;font-size:16px}
+  #toast b{display:block;font-size:13px;color:#fde68a;letter-spacing:1px}
+  #toast span{font-size:13px;color:var(--muted)}
+  @media(max-width:640px){#creeper{transform:scale(.8);transform-origin:bottom left;left:10px}}
+  @media(prefers-reduced-motion:reduce){#creeper,.cube,.c-bubble{animation:none!important}}
+</style>
+</head>
+<body>
+
+<!-- SVG ICON SET -->
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+  <symbol id="i-fork" viewBox="0 0 24 24"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v3a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/><line x1="12" y1="15" x2="12" y2="15"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></symbol>
+  <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol>
+  <symbol id="i-swords" viewBox="0 0 24 24"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="4" y2="20"/><line x1="3" y1="19" x2="5" y2="21"/></symbol>
+  <symbol id="i-gamepad" viewBox="0 0 24 24"><line x1="6" y1="11" x2="10" y2="11"/><line x1="8" y1="9" x2="8" y2="13"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.98 3.59C2.6 9.42 2 14.46 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.41-1.41A2 2 0 0 1 9.83 16h4.34a2 2 0 0 1 1.41.59L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.54-.6-6.58-.68-7.26A4 4 0 0 0 17.32 5z"/></symbol>
+  <symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M14 7V5a2 2 0 0 0-4 0v2H7a2 2 0 0 0-2 2v3h2a2 2 0 1 1 0 4H5v3a2 2 0 0 0 2 2h3v-2a2 2 0 1 1 4 0v2h3a2 2 0 0 0 2-2v-3h-2a2 2 0 1 1 0-4h2V9a2 2 0 0 0-2-2h-3z"/></symbol>
+  <symbol id="i-crown" viewBox="0 0 24 24"><path d="M2 18h20"/><path d="M19 18v-7l-5 4-5-8-5 8-5-4v7z"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.3 7 12 12 20.7 7"/><line x1="12" y1="22" x2="12" y2="12"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r="1"/><circle cx="17.5" cy="10.5" r="1"/><circle cx="8.5" cy="7.5" r="1"/><circle cx="6.5" cy="12.5" r="1"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.84-.44-1.13-.26-.29-.43-.68-.43-1.12A1.68 1.68 0 0 1 14.46 16h2.07A5.47 5.47 0 0 0 22 10.5C21.95 5.73 17.23 2 12 2z"/></symbol>
+  <symbol id="i-terminal" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="M16.71 13.75l.69.0 3.1.0"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></symbol>
+  <symbol id="i-insta" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></symbol>
+  <symbol id="i-discord" viewBox="0 0 24 24"><path d="M18.6 5.33A16.4 16.4 0 0 0 14.5 4l-.53 1.07a14 14 0 0 0-3.94 0L9.5 4a16.4 16.4 0 0 0-4.1 1.33C2.9 9.05 2.2 12.68 2.55 16.24A16.9 16.9 0 0 0 7.7 19.1l1.1-1.82a9.9 9.9 0 0 1-1.7-.82l.4-.3a12 12 0 0 0 10.2 0l.4.3c-.53.33-1.1.62-1.7.82l1.1 1.82a16.9 16.9 0 0 0 5.15-2.86c.4-4.1-.68-7.66-2.85-10.91z"/><circle cx="8.7" cy="13.5" r=".8"/><circle cx="15.3" cy="13.5" r=".8"/></symbol>
+</svg>
+
+<canvas id="particles"></canvas>
+<div class="grid-bg"></div>
+<div id="cursorGlow"></div>
+<div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+<div id="progress"></div>
+<div id="xpLevel" class="px">0</div>
+
+<nav>
+  <div class="wrap">
+    <div class="logo"><div class="logo-mark">H</div></div>
+    <div class="links">
+      <a href="#top" data-en="Home" data-ar="الرئيسية">Home</a>
+      <a href="#about" data-en="About" data-ar="عني">About</a>
+      <a href="#expertise" data-en="Expertise" data-ar="خبراتي">Expertise</a>
+      <a href="#featured" data-en="AlphaPractice" data-ar="ألفا براكتس">AlphaPractice</a>
+      <a href="#work" data-en="Projects" data-ar="مشاريعي">Projects</a>
+      <a href="#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+    </div>
+    <div class="nav-right">
+      <div class="status-dot"><i></i><span data-en="Available" data-ar="متاح">Available</span></div>
+      <button class="lang-btn" id="langBtn"><svg class="ic sm"><use href="#i-globe"/></svg><span id="langLabel">عربي</span></button>
+      <a class="btn primary magnetic" href="#contact" data-en="Hire Me" data-ar="وظفني">Hire Me</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero wrap" id="top">
+  <div class="cube c1"></div><div class="cube diamond c2"></div><div class="cube gold c3"></div>
+  <div id="heroInner">
+    <div class="tag"><i></i><span data-en="Minecraft Developer & Server Specialist" data-ar="مطور ماينكرافت ومختص سيرفرات">Minecraft Developer & Server Specialist</span><i></i></div>
+    <h1 data-en='Code. Protect. <span class="grad">Optimize.</span>' data-ar='برمجة. حماية. <span class="grad">أداء.</span>'>Code. Protect. <span class="grad">Optimize.</span></h1>
+    <p class="sub" data-en="Hi, I'm <b>Hamza</b> — a professional Minecraft programmer specialized in <b>custom development</b>, <b>server protection & DDoS mitigation</b> and <b>performance optimization</b>. Private plugins, Paper/Folia forks, custom jars, pro configs — everything your server needs to run fast and stay online." data-ar="أهلاً، أنا <b>حمزة</b> — مبرمج ماينكرافت محترف متخصص في <b>البرمجة الخاصة</b>، <b>حماية السيرفرات والتصدي لهجمات DDoS</b> و<b>رفع الأداء</b>. بلوقنات خاصة، فوركات Paper وFolia، جارات مخصصة، كونفيقات احترافية — كل ما يحتاجه سيرفرك ليعمل بسرعة ويبقى أونلاين.">Hi, I'm <b>Hamza</b> — a professional Minecraft programmer specialized in <b>custom development</b>, <b>server protection & DDoS mitigation</b> and <b>performance optimization</b>. Private plugins, Paper/Folia forks, custom jars, pro configs — everything your server needs to run fast and stay online.</p>
+    <div class="rotator"><span data-en="I deliver" data-ar="أقدم لك">I deliver</span> <span id="rotWord">Custom Plugins</span></div>
+    <div class="cta">
+      <a class="btn primary magnetic" href="#contact"><svg class="ic sm"><use href="#i-send"/></svg><span data-en="Hire Me" data-ar="وظفني">Hire Me</span></a>
+      <a class="btn magnetic" href="#expertise"><span data-en="My Expertise ↓" data-ar="خبراتي ↓">My Expertise ↓</span></a>
+    </div>
+    <div class="hero-badges">
+      <span><svg class="ic sm"><use href="#i-swords"/></svg><span data-en="AlphaPractice Author" data-ar="مؤلف ألفا براكتس">AlphaPractice Author</span></span>
+      <span><svg class="ic sm"><use href="#i-shield"/></svg><span data-en="DDoS Protection" data-ar="حماية DDoS">DDoS Protection</span></span>
+      <span><svg class="ic sm"><use href="#i-bolt"/></svg><span data-en="Performance" data-ar="الأداء">Performance</span></span>
+      <span><svg class="ic sm"><use href="#i-fork"/></svg><span data-en="Folia & Paper Forks" data-ar="فوركات Folia و Paper">Folia & Paper Forks</span></span>
+    </div>
+    <div class="stats">
+      <div class="stat"><b><span class="count" data-target="3">0</span>+</b><small data-en="Years Experience" data-ar="سنوات خبرة">Years Experience</small></div>
+      <div class="stat"><b><span class="count" data-target="50">0</span>+</b><small data-en="Projects Delivered" data-ar="مشروع منجز">Projects Delivered</small></div>
+      <div class="stat"><b><span class="count" data-target="20">0</span>+</b><small data-en="PvP Ladders Shipped" data-ar="طور PvP جاهز">PvP Ladders Shipped</small></div>
+      <div class="stat"><b>&lt;24h</b><small data-en="Response Time" data-ar="سرعة الرد">Response Time</small></div>
+    </div>
+  </div>
+</header>
+
+<div class="marquee"><div class="marquee-track" id="marqueeTrack">
+  <span>CUSTOM PLUGINS</span><span>DDoS PROTECTION</span><span>PERFORMANCE</span><span>PAPER & FOLIA FORKS</span>
+  <span>CUSTOM JARS</span><span>PRO CONFIGS</span><span>VELOCITY NETWORKS</span><span>ALPHAPRACTICE</span>
+</div></div>
+
+<div class="grass-strip"></div>
+
+<section id="about"><div class="wrap reveal">
+  <div class="kicker" data-en="About me" data-ar="عني">About me</div>
+  <h2 data-en='Professional in <span class="grad">code, protection & performance.</span>' data-ar='محترف في <span class="grad">البرمجة والحماية والأداء.</span>'>Professional in <span class="grad">code, protection & performance.</span></h2>
+  <p class="sec-sub" data-en="Not just a plugin developer — a full server specialist." data-ar="لست مجرد مطور بلوقنات — بل مختص سيرفرات متكامل.">Not just a plugin developer — a full server specialist.</p>
+  <div class="about-card">
+    <span data-en="I'm <b>Hamza</b>, professional in <b>programming, server protection, performance boosting and DDoS mitigation</b>. I improve the server itself: <b>Paper & Folia forks, custom jars, private plugins</b> and <b>professional config editing</b> — timings, JVM flags, chunk handling and network tuning done right. My work is tested under real players and real attacks, documented, and maintained long after delivery." data-ar="أنا <b>حمزة</b>، محترف في <b>البرمجة وحماية السيرفرات ورفع الأداء والتصدي لهجمات DDoS</b>. أطوّر السيرفر نفسه: <b>فوركات Paper وFolia، جارات مخصصة، بلوقنات خاصة</b> و<b>تعديل الكونفيقات باحترافية</b> — التايمنقز وأعلام JVM ومعالجة الـChunks وضبط الشبكة بالطريقة الصحيحة. عملي مُختبر تحت لاعبين حقيقيين وهجمات حقيقية، موثّق، ومدعوم بعد التسليم.">I'm <b>Hamza</b>, professional in <b>programming, server protection, performance boosting and DDoS mitigation</b>. I improve the server itself: <b>Paper & Folia forks, custom jars, private plugins</b> and <b>professional config editing</b> — timings, JVM flags, chunk handling and network tuning done right. My work is tested under real players and real attacks, documented, and maintained long after delivery.</span>
+    <div class="skills">
+      <span class="skill"><svg class="ic"><use href="#i-code"/></svg>Java • Paper 1.8–1.21</span>
+      <span class="skill"><svg class="ic"><use href="#i-fork"/></svg>Folia</span>
+      <span class="skill"><svg class="ic"><use href="#i-terminal"/></svg><span data-en="Paper Forks" data-ar="فوركات Paper">Paper Forks</span></span>
+      <span class="skill"><svg class="ic"><use href="#i-box"/></svg><span data-en="Custom Jars" data-ar="جارات مخصصة">Custom Jars</span></span>
+      <span class="skill"><svg class="ic"><use href="#i-lock"/></svg><span data-en="Private Plugins" data-ar="بلوقنات خاصة">Private Plugins</span></span>
+      <span class="skill"><svg class="ic"><use href="#i-sliders"/></svg><span data-en="Pro Configs" data-ar="كونفيقات احترافية">Pro Configs</span></span>
+      <span class="skill"><svg class="ic"><use href="#i-shield"/></svg><span data-en="DDoS Mitigation" data-ar="صد هجمات DDoS">DDoS Mitigation</span></span>
+      <span class="skill"><svg class="ic"><use href="#i-bolt"/></svg>XDP / eBPF</span>
+      <span class="skill"><svg class="ic"><use href="#i-server"/></svg>Velocity</span>
+      <span class="skill"><svg class="ic"><use href="#i-chart"/></svg><span data-en="Timings & JVM" data-ar="تايمنقز و JVM">Timings & JVM</span></span>
+    </div>
+  </div>
+</div></section>
+
+<section id="expertise"><div class="wrap reveal">
+  <div class="kicker" data-en="Expertise" data-ar="خبراتي">Expertise</div>
+  <h2 data-en="Everything your server needs" data-ar="كل ما يحتاجه سيرفرك">Everything your server needs</h2>
+  <p class="sec-sub" data-en="Five disciplines, one developer — so nothing breaks between providers." data-ar="خمس تخصصات ومطور واحد — حتى لا يتعطل شيء بين مقدمي الخدمات.">Five disciplines, one developer — so nothing breaks between providers.</p>
+  <div class="grid">
+    <div class="card tilt"><div class="icon"><svg class="ic"><use href="#i-code"/></svg></div>
+      <h3 data-en="Custom Programming" data-ar="برمجة خاصة">Custom Programming</h3>
+      <p data-en="Private Paper / Velocity / Folia plugins written from scratch — minigames, cores, systems, APIs. Clean code you can extend." data-ar="بلوقنات Paper وVelocity وFolia خاصة مكتوبة من الصفر — ميني قيمز وأنظمة وواجهات برمجية. كود نظيف قابل للتوسعة.">Private Paper / Velocity / Folia plugins written from scratch — minigames, cores, systems, APIs. Clean code you can extend.</p>
+      <ul><li><svg class="ic"><use href="#i-check"/></svg><span data-en="Minigames & cores" data-ar="ميني قيمز وأنظمة">Minigames & cores</span></li><li><svg class="ic"><use href="#i-check"/></svg><span data-en="Folia-safe async design" data-ar="تصميم آمن لـ Folia">Folia-safe async design</span></li><li><svg class="ic"><use href="#i-check"/></svg><span data-en="APIs & documentation" data-ar="واجهات وتوثيق">APIs & documentation</span></li></ul></div>
+    <div class="card tilt"><div class="icon"><svg class="ic"><use href="#i-shield"/></svg></div>
+      <h3 data-en="Protection & Anti-DDoS" data-ar="الحماية ومكافحة DDoS">Protection & Anti-DDoS</h3>
+      <p data-en="Layered defense: filtered proxies, firewalls, kernel-level XDP/eBPF L7 filtering and IP hiding. Bots die at the edge." data-ar="دفاع متعدد الطبقات: بروكسيات مفلترة وجدران نارية وفلترة L7 على مستوى الكيرنل بتقنية XDP/eBPF وإخفاء الآيبي. البوتات تموت عند البوابة.">Layered defense: filtered proxies, firewalls, kernel-level XDP/eBPF L7 filtering and IP hiding. Bots die at the edge.</p>
+      <ul><li><svg class="ic"><use href="#i-check"/></svg><span data-en="Velocity frontends" data-ar="واجهات Velocity">Velocity frontends</span></li><li><svg class="ic"><use href="#i-check"/></svg><span data-en="XDP L7 filters" data-ar="فلاتر XDP">XDP L7 filters</span></li><li><svg class="ic"><use href="#i-check"/></svg><span data-en="Bot & flood mitigation" data-ar="صد البوتات والفيضانات">Bot & flood mitigation</span></li></ul></div>
+    <div class="card tilt"><div class="icon"><svg class="ic"><use href="#i-bolt"/></svg></div>
+      <h3 data-en="Performance & Optimization" data-ar="الأداء والتحسين">Performance & Optimization</h3>
+      <p data-en="Real TPS gains: timings audits, entity/chunk tuning, JVM flags and config overhauls for high player counts." data-ar="مكاسب TPS حقيقية: فحص التايمنقز وضبط الـEntities والـChunks وأعلام JVM وإعادة هيكلة الكونفيقات لأعداد كبيرة من اللاعبين.">Real TPS gains: timings audits, entity/chunk tuning, JVM flags and config overhauls for high player counts.</p>
+      <ul><li><svg class="ic"><use href="#i-check"/></svg><span data-en="Timings & spark audits" data-ar="فحص التايمنقز">Timings & spark audits</span></li><li><svg class="ic"><use href="#i-check"/></svg><span data-en="Chunk & entity tuning" data-ar="ضبط الـChunks">Chunk & entity tuning</span></li><li><svg class="ic"><use href="#i-check"/></svg><span data-en="JVM & startup flags" data-ar="أعلام JVM">JVM & startup flags</span></li></ul></div>
+    <div class="card tilt"><div class="icon"><svg class="ic"><use href="#i-fork"/></svg></div>
+      <h3 data-en="Forks & Custom Jars" data-ar="الفوركات والجارات">Forks & Custom Jars</h3>
+      <p data-en="Paper & Folia forks and custom jars patched for your needs — behavior changes no plugin can do." data-ar="فوركات Paper وFolia وجارات مخصصة معدلة لاحتياجك — تغييرات في السلوك لا يستطيع أي بلوقن فعلها.">Paper & Folia forks and custom jars patched for your needs — behavior changes no plugin can do.</p>
+      <ul><li><svg class="ic"><use href="#i-check"/></svg><span data-en="Paper / Folia forks" data-ar="فوركات Paper وFolia">Paper / Folia forks</span></li><li><svg class="ic"><use href="#i-check"/></svg><span data-en="Custom patches & jars" data-ar="باتشات وجارات مخصصة">Custom patches & jars</span></li><li><svg class="ic"><use href="#i-check"/></svg><span data-en="Version support 1.8–1.21" data-ar="دعم النسخ 1.8–1.21">Version support 1.8–1.21</span></li></ul></div>
+    <div class="card tilt"><div class="icon"><svg class="ic"><use href="#i-sliders"/></svg></div>
+      <h3 data-en="Pro Configs & Setups" data-ar="الكونفيقات والسيت أب">Pro Configs & Setups</h3>
+      <p data-en="Professional config editing and full setups: Velocity networks, lobbies, permissions, scoreboards — launch-ready." data-ar="تعديل الكونفيقات باحترافية وسيت أب كامل: شبكات Velocity ولوبيات وصلاحيات وسكوربورد — جاهز للافتتاح.">Professional config editing and full setups: Velocity networks, lobbies, permissions, scoreboards — launch-ready.</p>
+      <ul><li><svg class="ic"><use href="#i-check"/></svg><span data-en="Velocity networks" data-ar="شبكات Velocity">Velocity networks</span></li><li><svg class="ic"><use href="#i-check"/></svg><span data-en="Ranks, GUIs & messages" data-ar="رتب وقوائم ورسائل">Ranks, GUIs & messages</span></li><li><svg class="ic"><use href="#i-check"/></svg><span data-en="Launch-ready delivery" data-ar="تسليم جاهز للافتتاح">Launch-ready delivery</span></li></ul></div>
+  </div>
+</div></section>
+
+<section id="featured"><div class="wrap reveal">
+  <div class="kicker" data-en="Spotlight — my best work" data-ar="تحت الأضواء — أفضل أعمالي">Spotlight — my best work</div>
+  <h2 data-en="One of the plugins I'm most proud of" data-ar="من أبرز البلوقنات التي أبدعت فيها">One of the plugins I'm most proud of</h2>
+  <p class="sec-sub" data-en="A single section for the project that shows what I can do at my best." data-ar="قسم واحد للمشروع الذي يُظهر أفضل ما أستطيع تقديمه.">A single section for the project that shows what I can do at my best.</p>
+  <div class="featured"><div class="featured-inner">
+    <div class="flag">★ ALPHA FLAGSHIP — PRACTICE CORE</div>
+    <h3><span class="grad">AlphaPractice</span></h3>
+    <div class="ver">PAPER 1.8–1.21 • RANKED & UNRANKED • MYSQL + REDIS CROSS-SERVER</div>
+    <p data-en="A complete practice PvP core: players queue ranked or unranked across 20+ editable ladders, climb ELO divisions from Iron to the top, duel friends, join parties and events, spectate matches, customize kits and cosmetics — with staff tools, full statistics and cross-server Lobby/Arena modes over Velocity + Redis." data-ar="كور براكتس PvP متكامل: يدخل اللاعبون طوابير مصنفة وغير مصنفة عبر أكثر من 20 طور قابل للتعديل، ويتسلقون أقسام ELO من الحديد إلى القمة، ويتحدون الأصدقاء وينضمون للبارتيات والفعاليات ويشاهدون المباريات ويخصصون الكتات والتجميل — مع أدوات للإدارة وإحصائيات كاملة وأطوار لوبي وأرينا عبر السيرفرات بتقنية Velocity وRedis.">A complete practice PvP core: players queue ranked or unranked across 20+ editable ladders, climb ELO divisions from Iron to the top, duel friends, join parties and events, spectate matches, customize kits and cosmetics — with staff tools, full statistics and cross-server Lobby/Arena modes over Velocity + Redis.</p>
+    <div class="ladders">
+      <span class="ladder">Vanilla</span><span class="ladder">Mace</span><span class="ladder">Axe</span>
+      <span class="ladder">BuildUHC</span><span class="ladder">NoDebuff</span><span class="ladder">Debuff</span>
+      <span class="ladder">Gapple</span><span class="ladder">Soup</span><span class="ladder">Sumo</span>
+      <span class="ladder">TNT Sumo</span><span class="ladder">Boxing</span><span class="ladder">Crystal</span>
+      <span class="ladder">Spleef</span><span class="ladder">BedWars</span><span class="ladder">SkyWars</span>
+      <span class="ladder">SG</span><span class="ladder">Fireball</span><span class="ladder">Archer</span>
+      <span class="ladder">MLGRush</span><span class="ladder">PearlFight</span><span class="ladder">Bridges</span>
+      <span class="ladder">Netherite OP</span>
+    </div>
+    <div class="feat-grid">
+      <div class="feat"><h4><svg class="ic"><use href="#i-swords"/></svg><span data-en="Queues & Matches" data-ar="الطوابير والمباريات">Queues & Matches</span></h4><ul>
+        <li><svg class="ic"><use href="#i-check"/></svg>Ranked + Unranked queues</li>
+        <li><svg class="ic"><use href="#i-check"/></svg><span data-en="Quick-match & category selector" data-ar="مباراة سريعة واختيار الفئة">Quick-match & category selector</span></li>
+        <li><svg class="ic"><use href="#i-check"/></svg><span data-en="Duels with arena & round select" data-ar="دولز مع اختيار الأرينا والجولات">Duels with arena & round select</span></li>
+        <li><svg class="ic"><use href="#i-check"/></svg><span data-en="Party vs Party fights" data-ar="قتالات بارتي ضد بارتي">Party vs Party fights</span></li>
+        <li><svg class="ic"><use href="#i-check"/></svg><span data-en="Hosted events with GUI" data-ar="فعاليات بقوائم">Hosted events with GUI</span></li>
+        <li><svg class="ic"><use href="#i-check"/></svg>FFA arenas</li>
+      </ul></div>
+      <div class="feat"><h4><svg class="ic"><use href="#i-trophy"/></svg><span data-en="ELO & Divisions" data-ar="التقييم والأقسام">ELO & Divisions</span></h4><ul>
+        <li><svg class="ic"><use href="#i-check"/></svg><span data-en="Per-kit ELO ratings" data-ar="تقييم لكل كت">Per-kit ELO ratings</span></li>
+        <li><svg class="ic"><use href="#i-check"/></svg><span data-en="Division ladder: Iron → Steel → …" data-ar="الأقسام: حديد ← ستيل ← …">Division ladder: Iron → Steel → …</span></li>
+        <li><svg class="ic"><use href="#i-check"/></svg><span data-en="ELO tags & leaderboards" data-ar="أوسمة ولوحات الصدارة">ELO tags & leaderboards</span></li>
+        <li><svg class="ic"><use href="#i-check"/></svg><span data-en="Win / XP requirements" data-ar="شروط الفوز والخبرة">Win / XP requirements</span></li>
+        <li><svg class="ic"><use href="#i-check"/></svg><span data-en="Ranked bans & daily limits" data-ar="حظر مصنف وحدود يومية">Ranked bans & daily limits</span></li>
+      </ul></div>
+      <div class="feat"><h4><svg class="ic"><use href="#i-palette"/></svg><span data-en="Kits & Cosmetics" data-ar="الكتات والتجميل">Kits & Cosmetics</span></h4><ul>
+        <li><svg class="ic"><use href="#i-check"/></svg><span data-en="In-game kit editor + previews" data-ar="محرر كتات داخل اللعبة">In-game kit editor + previews</span></li>
+        <li><svg class="ic"><use href="#i-check"/></svg><span data-en="Custom kits players can share" data-ar="كتات قابلة للمشاركة">Custom kits players can share</span></li>
+        <li><svg class="ic"><use href="#i-check"/></svg><span data-en="Armor-trim cosmetics shop" data-ar="متجر زخارف الدروع">Armor-trim cosmetics shop</span></li>
+        <li><svg class="ic"><use href="#i-check"/></svg><span data-en="Lobby movement effects" data-ar="مؤثرات حركة اللوبي">Lobby movement effects</span></li>
+        <li><svg class="ic"><use href="#i-check"/></svg><span data-en="Coins economy + shop" data-ar="اقتصاد ومتجر">Coins economy + shop</span></li>
+      </ul></div>
+      <div class="feat"><h4><svg class="ic"><use href="#i-eye"/></svg><span data-en="Staff & Infra" data-ar="الإدارة والبنية">Staff & Infra</span></h4><ul>
+        <li><svg class="ic"><use href="#i-check"/></svg><span data-en="Staff mode, spectate & match info" data-ar="وضع الإدارة والمشاهدة">Staff mode, spectate & match info</span></li>
+        <li><svg class="ic"><use href="#i-check"/></svg><span data-en="Arena/ladder freeze & stop" data-ar="تجميد الأرينات">Arena/ladder freeze & stop</span></li>
+        <li><svg class="ic"><use href="#i-check"/></svg>MySQL stats + Redis sync</li>
+        <li><svg class="ic"><use href="#i-check"/></svg><span data-en="Lobby / Arena split servers" data-ar="سيرفرات لوبي وأرينا">Lobby / Arena split servers</span></li>
+        <li><svg class="ic"><use href="#i-check"/></svg>PlaceholderAPI</li>
+      </ul></div>
+    </div>
+    <div class="feat-grid">
+      <div class="feat"><h4><svg class="ic"><use href="#i-terminal"/></svg><span data-en="Player commands" data-ar="أوامر اللاعبين">Player commands</span></h4>
+        <code class="cmd">/ranked &nbsp; /unranked &nbsp; /duel &lt;player&gt;</code>
+        <code class="cmd">/party &nbsp; /event &nbsp; /spectate &nbsp; /stats</code>
+        <code class="cmd">/editor &nbsp; /divisions &nbsp; /shop &nbsp; /settings</code>
+      </div>
+      <div class="feat"><h4><svg class="ic"><use href="#i-server"/></svg><span data-en="Requirements" data-ar="المتطلبات">Requirements</span></h4><ul>
+        <li><svg class="ic"><use href="#i-check"/></svg>Paper 1.8–1.21 (packetevents)</li>
+        <li><svg class="ic"><use href="#i-check"/></svg>PlaceholderAPI, TAB <span data-en="(optional)" data-ar="(اختياري)">(optional)</span></li>
+        <li><svg class="ic"><use href="#i-check"/></svg>MySQL + Redis <span data-en="(networks)" data-ar="(للشبكات)">(networks)</span></li>
+        <li><svg class="ic"><use href="#i-check"/></svg>Velocity <span data-en="(Lobby/Arena mode)" data-ar="(طور اللوبي)">(Lobby/Arena mode)</span></li>
+      </ul></div>
+    </div>
+  </div></div>
+</div></section>
+
+<section id="work"><div class="wrap reveal">
+  <div class="kicker" data-en="More projects" data-ar="مشاريع أخرى">More projects</div>
+  <h2 data-en="Also built" data-ar="أعمال أخرى">Also built</h2>
+  <p class="sec-sub" data-en="Real plugins from my workspace — every one configurable and documented." data-ar="بلوقنات حقيقية من مشاريعي — كلها قابلة للتعديل وموثقة.">Real plugins from my workspace — every one configurable and documented.</p>
+  <div class="grid">
+    <div class="card tilt"><div class="icon"><svg class="ic"><use href="#i-swords"/></svg></div><h3>AlphaDuels</h3><p data-en="Duel-focused practice system: challenge players, pick arenas and rounds, rematch instantly with full stats." data-ar="نظام دولز متكامل: تحدَّ اللاعبين واختر الأرينا والجولات وأعد المباراة فوراً مع إحصائيات كاملة.">Duel-focused practice system: challenge players, pick arenas and rounds, rematch instantly with full stats.</p><div class="meta">PAPER • DUELS</div></div>
+    <div class="card tilt"><div class="icon"><svg class="ic"><use href="#i-box"/></svg></div><h3>AlphaBoxPvP</h3><p data-en="Complete BoxPvP core: box arenas, kits, killstreaks, crates and coin shop tuned for grinding servers." data-ar="كور BoxPvP متكامل: أرينات وكتات وسلاسل قتل وصناديق ومتجر مضبوط لسيرفرات الطحن.">Complete BoxPvP core: box arenas, kits, killstreaks, crates and coin shop tuned for grinding servers.</p><div class="meta">PAPER • V1.0.0</div></div>
+    <div class="card tilt"><div class="icon"><svg class="ic"><use href="#i-crown"/></svg></div><h3>AlphaKoth</h3><p data-en="Scheduled King-of-the-Hill events with cap zones, timers, rewards and hologram leaderboards." data-ar="فعاليات KOTH مجدولة مع مناطق سيطرة ومؤقتات وجوائز ولوحات صدارة هولوغرام.">Scheduled King-of-the-Hill events with cap zones, timers, rewards and hologram leaderboards.</p><div class="meta">PAPER • V1.0.0 • EVENTS</div></div>
+    <div class="card tilt"><div class="icon"><svg class="ic"><use href="#i-gamepad"/></svg></div><h3>AlphaFFA</h3><p data-en="Fast free-for-all arenas with instant respawn, killstreaks and custom kits per arena." data-ar="أرينات FFA سريعة مع إحياء فوري وسلاسل قتل وكتات مخصصة لكل أرينا.">Fast free-for-all arenas with instant respawn, killstreaks and custom kits per arena.</p><div class="meta">PAPER • FFA</div></div>
+    <div class="card tilt"><div class="icon"><svg class="ic"><use href="#i-home"/></svg></div><h3>AlphaLobby</h3><p data-en="Lobby core: selector GUIs, cosmetics, parkour, queue items and protection — the hub of the network." data-ar="كور اللوبي: قوائم اختيار وتجميل وباركور وعناصر طوابير وحماية — مركز الشبكة.">Lobby core: selector GUIs, cosmetics, parkour, queue items and protection — the hub of the network.</p><div class="meta">PAPER • LOBBY</div></div>
+    <div class="card tilt"><div class="icon"><svg class="ic"><use href="#i-bolt"/></svg></div><h3>AlphaStrike</h3><p data-en="Combat system core: custom items, abilities and balancing for PvP-focused game modes." data-ar="كور نظام قتال: عناصر وقدرات مخصصة وموازنة لأطوار PvP.">Combat system core: custom items, abilities and balancing for PvP-focused game modes.</p><div class="meta">PAPER • COMBAT</div></div>
+  </div>
+</div></section>
+
+<section id="process"><div class="wrap reveal">
+  <div class="kicker" data-en="How I work" data-ar="طريقة عملي">How I work</div>
+  <h2 data-en="From idea to launch" data-ar="من الفكرة إلى الافتتاح">From idea to launch</h2>
+  <p class="sec-sub" data-en="Simple process, no surprises." data-ar="خطوات بسيطة بلا مفاجآت.">Simple process, no surprises.</p>
+  <div class="steps">
+    <div class="step"><div class="num">1</div><h4 data-en="Contact" data-ar="تواصل">Contact</h4><p data-en="Message me on Discord with your idea, server type and budget." data-ar="راسلني على الديسكورد بفكرتك ونوع سيرفرك وميزانيتك.">Message me on Discord with your idea, server type and budget.</p></div>
+    <div class="step"><div class="num">2</div><h4 data-en="Plan & Price" data-ar="التخطيط والسعر">Plan & Price</h4><p data-en="We agree on features, timeline and a fixed price before I start." data-ar="نتفق على الميزات والمدة والسعر الثابت قبل أن أبدأ.">We agree on features, timeline and a fixed price before I start.</p></div>
+    <div class="step"><div class="num">3</div><h4 data-en="Build & Test" data-ar="البناء والاختبار">Build & Test</h4><p data-en="I develop and test with real players — and real attacks — until it's right." data-ar="أطوّر وأختبر مع لاعبين حقيقيين — وهجمات حقيقية — حتى يصبح مثالياً.">I develop and test with real players — and real attacks — until it's right.</p></div>
+    <div class="step"><div class="num">4</div><h4 data-en="Deliver + Support" data-ar="التسليم والدعم">Deliver + Support</h4><p data-en="You get the plugin, configs and docs — plus support after launch." data-ar="تستلم البلوقن والكونفيقات والتوثيق — مع دعم بعد الافتتاح.">You get the plugin, configs and docs — plus support after launch.</p></div>
+  </div>
+</div></section>
+
+<section id="contact"><div class="wrap reveal">
+  <div class="kicker" data-en="Contact" data-ar="تواصل">Contact</div>
+  <h2 data-en="Got a project in mind?" data-ar="عندك مشروع في بالك؟">Got a project in mind?</h2>
+  <p class="sec-sub" data-en="Tell me what you're building. Discord is the fastest way to reach me — I usually reply within a day." data-ar="أخبرني بما تبنيه. الديسكورد أسرع طريقة للوصول إلي — عادة أرد خلال يوم.">Tell me what you're building. Discord is the fastest way to reach me — I usually reply within a day.</p>
+  <div class="contact-box">
+    <p style="color:var(--muted)" data-en="Discord — click to copy:" data-ar="الديسكورد — اضغط للنسخ:">Discord — click to copy:</p>
+    <div class="contact-row">
+      <code class="id" id="discordId" title="Click to copy">i7zo_</code>
+    </div>
+    <div class="contact-row">
+      <a class="btn primary magnetic" href="https://discord.com/users/i7zo_" target="_blank" rel="noopener"><svg class="ic sm"><use href="#i-discord"/></svg><span data-en="Add on Discord" data-ar="أضفني على الديسكورد">Add on Discord</span></a>
+      <a class="btn magnetic" href="https://github.com/hamzasdsew" target="_blank" rel="noopener"><svg class="ic sm"><use href="#i-github"/></svg><span>GitHub @hamzasdsew</span></a>
+      <a class="btn magnetic" href="https://www.instagram.com/hamooz_x21" target="_blank" rel="noopener"><svg class="ic sm"><use href="#i-insta"/></svg><span>Instagram @hamooz_x21</span></a>
+    </div>
+  </div>
+</div></section>
+
+<div class="grass-strip"></div>
+<footer><div class="wrap">
+  <div class="foot-grid">
+    <div>
+      <h5>HAMZA</h5>
+      <p style="font-size:13px" data-en="Minecraft developer & server specialist — code, protection, performance." data-ar="مطور ماينكرافت ومختص سيرفرات — برمجة وحماية وأداء.">Minecraft developer & server specialist — code, protection, performance.</p>
+    </div>
+    <div>
+      <h5 data-en="Explore" data-ar="استكشف">Explore</h5>
+      <a href="#about"><svg class="ic"><use href="#i-eye"/></svg><span data-en="About" data-ar="عني">About</span></a>
+      <a href="#expertise"><svg class="ic"><use href="#i-bolt"/></svg><span data-en="Expertise" data-ar="خبراتي">Expertise</span></a>
+      <a href="#featured"><svg class="ic"><use href="#i-trophy"/></svg><span>AlphaPractice</span></a>
+      <a href="#work"><svg class="ic"><use href="#i-box"/></svg><span data-en="Projects" data-ar="مشاريعي">Projects</span></a>
+    </div>
+    <div>
+      <h5 data-en="Services" data-ar="الخدمات">Services</h5>
+      <a href="#expertise"><svg class="ic"><use href="#i-code"/></svg><span data-en="Custom Plugins" data-ar="بلوقنات خاصة">Custom Plugins</span></a>
+      <a href="#expertise"><svg class="ic"><use href="#i-shield"/></svg><span data-en="Anti-DDoS" data-ar="مكافحة DDoS">Anti-DDoS</span></a>
+      <a href="#expertise"><svg class="ic"><use href="#i-bolt"/></svg><span data-en="Optimization" data-ar="تحسين الأداء">Optimization</span></a>
+      <a href="#expertise"><svg class="ic"><use href="#i-fork"/></svg><span data-en="Forks & Jars" data-ar="فوركات وجارات">Forks & Jars</span></a>
+    </div>
+    <div>
+      <h5 data-en="Contact" data-ar="تواصل">Contact</h5>
+      <a href="https://discord.com/users/i7zo_" target="_blank" rel="noopener"><svg class="ic"><use href="#i-discord"/></svg><span>Discord: i7zo_</span></a>
+      <a href="https://github.com/hamzasdsew" target="_blank" rel="noopener"><svg class="ic"><use href="#i-github"/></svg><span>GitHub</span></a>
+      <a href="https://www.instagram.com/hamooz_x21" target="_blank" rel="noopener"><svg class="ic"><use href="#i-insta"/></svg><span>Instagram</span></a>
+    </div>
+  </div>
+  <div class="foot-bottom">© 2026 <span>Hamza</span> — <span data-en="All rights reserved." data-ar="جميع الحقوق محفوظة.">All rights reserved.</span> • Minecraft Development</div>
+</div></footer>
+<!-- Creeper greeter -->
+<div id="creeper" title="Click me!">
+  <div class="c-bubble" id="cBubble">Hi! I'm Hamza's creeper — click me!</div>
+  <div class="c-head" id="cHead">
+    <span class="eye l"><span class="pupil"></span></span>
+    <span class="eye r"><span class="pupil"></span></span>
+  </div>
+  <div class="c-body"><span class="arm l"></span><span class="arm r"></span></div>
+  <div class="c-feet"><i></i><i></i></div>
+</div>
+<div id="flash"></div>
+<div id="toast"><div class="t-icon">!</div><div><b class="px">Achievement Get!</b><span id="toastMsg">Discord copied to clipboard</span></div></div>
+<button id="toTop" title="Back to top">↑</button>
+
+<script>
+  var MX = innerWidth/2, MY = innerHeight/2, TX = MX, TY = MY;
+  var LANG = localStorage.getItem('hamza-lang') || 'en';
+  var WORDS = {
+    en: ['Custom Plugins','DDoS Protection','Server Performance','Paper & Folia Forks','AlphaPractice'],
+    ar: ['بلوقنات خاصة','حماية DDoS','أداء السيرفرات','فوركات Paper و Folia','ألفا براكتس']
+  };
+  var COPY_MSG = {en:'Copied!', ar:'تم النسخ!'};
+  // 0. Language switcher
+  function applyLang(l){
+    LANG = l; localStorage.setItem('hamza-lang', l);
+    document.documentElement.lang = l;
+    document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
+    document.querySelectorAll('[data-en]').forEach(function(el){
+      el.innerHTML = l === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+    });
+    document.getElementById('langLabel').textContent = l === 'ar' ? 'EN' : 'عربي';
+    document.title = l === 'ar' ? 'حمزة — مطور ماينكرافت ومختص سيرفرات' : 'Hamza — Minecraft Developer & Server Specialist';
+    restartRotator();
+  }
+  document.getElementById('langBtn').addEventListener('click', function(){
+    applyLang(LANG === 'en' ? 'ar' : 'en');
+  });
+  // 1. Floating glow particles (flee the mouse)
+  (function(){
+    var c = document.getElementById('particles'), x = c.getContext('2d'), P = [];
+    function size(){ c.width = innerWidth; c.height = innerHeight; }
+    size(); addEventListener('resize', size);
+    var N = innerWidth < 640 ? 35 : 80;
+    for (var i = 0; i < N; i++) P.push({
+      x: Math.random()*innerWidth, y: Math.random()*innerHeight,
+      r: Math.random()*2.4+.6, s: Math.random()*.5+.15,
+      o: Math.random()*.5+.2, ph: Math.random()*6.28
+    });
+    (function tick(t){
+      x.clearRect(0,0,c.width,c.height);
+      for (var i = 0; i < P.length; i++){ var p = P[i];
+        p.y -= p.s; if (p.y < -10){ p.y = c.height+10; p.x = Math.random()*c.width; }
+        var dx = p.x - TX, dy = p.y - TY, d = Math.sqrt(dx*dx+dy*dy);
+        var ox = 0, oy = 0;
+        if (d < 170 && d > 1){ ox = dx/d*(170-d)*.022; oy = dy/d*(170-d)*.022; }
+        var tw = p.o + Math.sin(t/900 + p.ph)*.25;
+        x.beginPath(); x.arc(p.x+ox, p.y+oy, p.r, 0, 6.28);
+        x.fillStyle = 'rgba(196,138,252,'+tw.toFixed(3)+')';
+        x.shadowColor = 'rgba(168,85,247,.9)'; x.shadowBlur = 14; x.fill(); x.shadowBlur = 0;
+      }
+      requestAnimationFrame(tick);
+    })(0);
+  })();
+  // 2. Mouse parallax: cursor glow + orbs + hero tilt + card tilt + magnetic buttons
+  (function(){
+    var glow = document.getElementById('cursorGlow');
+    var orbs = document.querySelectorAll('.orb');
+    var hero = document.getElementById('heroInner');
+    var fine = matchMedia('(pointer:fine)').matches;
+    if (!fine){ glow.style.display = 'none'; return; }
+    var gx = MX, gy = MY;
+    addEventListener('mousemove', function(e){ TX = e.clientX; TY = e.clientY; }, {passive:true});
+    (function follow(){
+      gx += (TX-gx)*.08; gy += (TY-gy)*.08;
+      glow.style.left = gx+'px'; glow.style.top = gy+'px';
+      var nx = (gx/innerWidth - .5), ny = (gy/innerHeight - .5);
+      orbs[0].style.transform = 'translate('+(nx*100)+'px,'+(ny*75)+'px)';
+      orbs[1].style.transform = 'translate('+(-nx*120)+'px,'+(ny*85)+'px)';
+      orbs[2].style.transform = 'translate('+(nx*75)+'px,'+(-ny*95)+'px)';
+      document.querySelectorAll('.cube').forEach(function(cb,i){
+        var f = (i+1)*16;
+        cb.style.marginLeft = (nx*f)+'px'; cb.style.marginTop = (ny*f)+'px';
+      });
+      if (hero){
+        var r = hero.getBoundingClientRect();
+        if (TY > r.top-200 && TY < r.bottom+200)
+          hero.style.transform = 'rotateY('+(nx*5)+'deg) rotateX('+(-ny*5)+'deg)';
+        else hero.style.transform = '';
+      }
+      requestAnimationFrame(follow);
+    })();
+    document.querySelectorAll('.tilt').forEach(function(card){
+      card.addEventListener('mousemove', function(e){
+        var r = card.getBoundingClientRect();
+        var px = (e.clientX-r.left)/r.width - .5, py = (e.clientY-r.top)/r.height - .5;
+        card.style.transform = 'perspective(700px) rotateY('+(px*10)+'deg) rotateX('+(-py*10)+'deg) translateY(-4px)';
+      });
+      card.addEventListener('mouseleave', function(){ card.style.transform = ''; });
+    });
+    document.querySelectorAll('.magnetic').forEach(function(b){
+      b.addEventListener('mousemove', function(e){
+        var r = b.getBoundingClientRect();
+        b.style.transform = 'translate('+((e.clientX-r.left-r.width/2)*.18)+'px,'+((e.clientY-r.top-r.height/2)*.28)+'px)';
+      });
+      b.addEventListener('mouseleave', function(){ b.style.transform = ''; });
+    });
+  })();
+  // 3. Rotating specialty word (restarts on language change)
+  var rotTimer = null;
+  function restartRotator(){
+    var el = document.getElementById('rotWord');
+    if (rotTimer){ clearTimeout(rotTimer); rotTimer = null; }
+    var words = WORDS[LANG], wi = 0, ci = 0, del = false;
+    (function type(){
+      var w = words[wi];
+      el.textContent = w.slice(0, ci);
+      if (!del){ ci++; if (ci > w.length){ del = true; rotTimer = setTimeout(type, 1600); return; } }
+      else { ci--; if (ci === 0){ del = false; wi = (wi+1)%words.length; } }
+      rotTimer = setTimeout(type, del ? 35 : 70);
+    })();
+  }
+  // 4. Scroll reveal
+  (function(){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, {threshold:.1});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  })();
+  // 5. Animated counters
+  (function(){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (!e.isIntersecting) return;
+        var el = e.target, target = +el.dataset.target, cur = 0, step = Math.max(1, Math.ceil(target/40));
+        var iv = setInterval(function(){ cur += step; if (cur >= target){ cur = target; clearInterval(iv); } el.textContent = cur; }, 40);
+        io.unobserve(el);
+      });
+    }, {threshold:.5});
+    document.querySelectorAll('.count').forEach(function(el){ io.observe(el); });
+  })();
+  // 6. Scroll progress + back-to-top
+  var toTop = document.getElementById('toTop');
+  addEventListener('scroll', function(){
+    var h = document.documentElement, p = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+    document.getElementById('progress').style.width = p + '%';
+    if (h.scrollTop > 600) toTop.classList.add('show'); else toTop.classList.remove('show');
+  }, {passive:true});
+  toTop.addEventListener('click', function(){ scrollTo({top:0, behavior:'smooth'}); });
+  // 7. Copy discord
+  document.getElementById('discordId').addEventListener('click', function(){
+    var t = 'i7zo_';
+    if (navigator.clipboard) navigator.clipboard.writeText(t);
+    this.textContent = COPY_MSG[LANG];
+    var el = this;
+    setTimeout(function(){ el.textContent = t; }, 1500);
+  });
+  // 8. Seamless marquee
+  (function(){
+    var tr = document.getElementById('marqueeTrack');
+    tr.innerHTML += tr.innerHTML;
+  })();
+  // 9. Init language (saved or default EN) + rotator
+  applyLang(LANG);
+  // 10. Creeper greeter: eyes follow you, blinks, talks, hisses
+  (function(){
+    var creep = document.getElementById('creeper');
+    var head = document.getElementById('cHead');
+    var bubble = document.getElementById('cBubble');
+    var flash = document.getElementById('flash');
+    var pupils = head.querySelectorAll('.pupil');
+    var fine = matchMedia('(pointer:fine)').matches;
+    var GREET = {
+      en: ["Hi! I'm Hamza's creeper — welcome!", "Sss... just kidding, I don't explode here.", "Need a plugin? Talk to Hamza!", "AlphaPractice is below — go check it!"],
+      ar: ["أهلاً! أنا كريبر حمزة — مرحباً بك!", "تسسس... أمزح فقط، لا أنفجر هنا.", "تحتاج بلوقن؟ كلم حمزة!", "ألفا براكتس بالأسفل — شوفه!"]
+    };
+    var step = 0, busy = false;
+    function lang(){ return (typeof LANG !== 'undefined' && LANG === 'ar') ? 'ar' : 'en'; }
+    function say(t, ms){
+      bubble.textContent = t;
+      creep.classList.add('show-bubble');
+      clearTimeout(say._t);
+      say._t = setTimeout(function(){ creep.classList.remove('show-bubble'); }, ms || 2600);
+    }
+    // pupils follow the cursor
+    if (fine) addEventListener('mousemove', function(e){
+      var r = head.getBoundingClientRect();
+      var dx = (e.clientX - (r.left + r.width/2)) / r.width;
+      var dy = (e.clientY - (r.top + r.height/2)) / r.height;
+      dx = Math.max(-1, Math.min(1, dx)); dy = Math.max(-1, Math.min(1, dy));
+      pupils.forEach(function(p){ p.style.transform = 'translate('+(dx*4)+'px,'+(dy*4)+'px)'; });
+    }, {passive:true});
+    // blinking
+    setInterval(function(){ head.classList.add('blink'); setTimeout(function(){ head.classList.remove('blink'); }, 140); }, 3400);
+    // welcome wave after load
+    setTimeout(function(){ say(lang() === 'ar' ? 'أهلاً! اضغط عليّ!' : 'Hey! Click me!', 3000); }, 1800);
+    // click: talk, then hiss + flash + hearts
+    creep.addEventListener('click', function(){
+      if (busy) return;
+      var L = GREET[lang()];
+      if (step % 3 === 1){
+        busy = true;
+        say('SSSSSS...', 900);
+        creep.classList.add('hiss');
+        setTimeout(function(){
+          flash.style.opacity = '1';
+          setTimeout(function(){ flash.style.opacity = '0'; }, 130);
+          creep.classList.remove('hiss');
+          hearts();
+          say(L[2], 2800);
+          busy = false;
+        }, 850);
+      } else {
+        say(L[step % L.length], 2800);
+      }
+      step++;
+    });
+    function hearts(){
+      var r = creep.getBoundingClientRect();
+      for (var i = 0; i < 8; i++){
+        var h = document.createElement('div');
+        h.className = 'heart-bit'; h.textContent = '♥';
+        h.style.left = (r.left + Math.random()*r.width) + 'px';
+        h.style.top = (r.top - 10) + 'px';
+        document.body.appendChild(h);
+        setTimeout((function(el){ return function(){ el.remove(); }; })(h), 1300);
+      }
+    }
+    // XP level badge follows scroll
+    var xp = document.getElementById('xpLevel');
+    addEventListener('scroll', function(){
+      var h = document.documentElement;
+      var p = h.scrollHeight - h.clientHeight <= 0 ? 0 : h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+      xp.textContent = 'LV ' + Math.floor(p / 4);
+    }, {passive:true});
+    // Achievement toast on discord copy
+    var toast = document.getElementById('toast');
+    document.getElementById('discordId').addEventListener('click', function(){
+      document.getElementById('toastMsg').textContent = lang() === 'ar' ? 'تم نسخ الديسكورد' : 'Discord copied to clipboard';
+      toast.classList.add('show');
+      clearTimeout(toast._t);
+      toast._t = setTimeout(function(){ toast.classList.remove('show'); }, 2600);
+    });
+  })();
+</script>
+</body>
+</html>
